@@ -179,7 +179,7 @@ int main () {
 ```
 ```c
 # include <stdio.h>
-#include <string.h>
+# include <string.h>
 int main () {
   char season[] = "winter";
   // length of string??
