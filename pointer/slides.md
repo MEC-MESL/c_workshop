@@ -307,8 +307,221 @@ int main(){
 <!-- baki ja janar, pore janbi usage dekhle. -->
 
 ---
-title: pointer to pointer
+layout: section
 ---
+
+# pointer to pointer
+
+---
+title: pointer to pointer visual
+---
+
+<v-switch>
+<template #0>
+
+```mermaid
+flowchart RL
+
+subgraph 1a[0x1003]
+direction TB
+1v[x = 5]
+1t[int]
+
+1v ~~~ 1t
+end
+```
+</template>
+<template #1>
+
+
+```mermaid
+flowchart LR
+
+subgraph 1a[0x1003]
+direction TB
+1v[x = 5]
+1t[int]
+
+1v ~~~ 1t
+end
+style 1a stroke:#fab387, stroke-width:3px
+
+subgraph 2a[0x1002]
+direction TB
+2v[p = 0x1003]
+2t[int*]
+
+2v ~~~ 2t
+end
+
+1a ~~~ 2a
+
+2a p3@--> 1a
+
+p3@{animate: true}
+```
+
+</template>
+<template #2>
+
+```mermaid
+flowchart LR
+
+subgraph 1a[0x1003]
+direction TB
+1v[x = 5]
+1t[int]
+
+1v ~~~ 1t
+end
+style 1a stroke:#fab387, stroke-width:3px
+
+subgraph 2a[0x1002]
+direction TB
+2v[p = 0x1003]
+2t[int*]
+
+2v ~~~ 2t
+end
+
+subgraph 3a[0x1001]
+direction TB
+3v[q = 0x1002]
+3t[int**]
+
+3v ~~~ 3t
+end
+
+1a ~~~ 2a ~~~ 3a
+
+3a p2@--> 2a p3@--> 1a
+
+p2@{animate: true}
+p3@{animate: true}
+```
+
+</template>
+<template #3>
+
+```mermaid
+flowchart RL
+
+subgraph 1a[0x1003]
+direction TB
+1v[x = 5]
+1t[int]
+
+1v ~~~ 1t
+end
+style 1a stroke:#fab387, stroke-width:3px
+
+subgraph 2a[0x1002]
+direction TB
+2v[p = 0x1003]
+2t[int*]
+
+2v ~~~ 2t
+end
+
+subgraph 3a[0x1001]
+direction TB
+3v[q = 0x1002]
+3t[int**]
+
+3v ~~~ 3t
+end
+
+subgraph 4a[0x1004]
+direction TB
+4v[r = 0x1001]
+4t[int***]:::hidden
+
+4v ~~~ 4t
+end
+
+4a ~~~ 1a ~~~ 2a ~~~ 3a
+
+3a p2@--> 2a p3@--> 1a
+
+p2@{animate: true}
+p3@{animate: true}
+```
+</template>
+<template #4>
+
+```mermaid
+flowchart RL
+
+subgraph 1a[0x1003]
+direction TB
+1v[x = 5]
+1t[int]
+
+1v ~~~ 1t
+end
+style 1a stroke:#fab387, stroke-width:3px
+
+subgraph 2a[0x1002]
+direction TB
+2v[p = 0x1003]
+2t[int*]
+
+2v ~~~ 2t
+end
+
+subgraph 3a[0x1001]
+direction TB
+3v[q = 0x1002]
+3t[int**]
+
+3v ~~~ 3t
+end
+
+subgraph 4a[0x1004]
+direction TB
+4v[r = 0x1001]
+4t[int***]
+
+4v ~~~ 4t
+end
+
+4a ~~~ 1a ~~~ 2a ~~~ 3a
+
+4a p1@--> 3a p2@--> 2a p3@--> 1a
+
+p1@{animate: true}
+p2@{animate: true}
+p3@{animate: true}
+```
+</template>
+</v-switch>
+
+---
+title: example pointer to pointer
+---
+
+```c {monaco-run}
+#include<stdio.h>
+int main(){
+  int x = 5; 
+  int* p = &x; // adress of x -> p
+  *p = 6; // change value of address inside p to 5
+  int** q = &p; // address of p -> q
+  int*** r = &q; // adress of q -> r
+}
+```
+
+<!-- 
+1. *p.
+2. *q
+3. *(*q)
+4. *(*r)
+5. *(*(*r))
+
+6. ***r = 10; print value of x
+7. **q = *p + 2; x=?
+-->
+
 
 ---
 title: pointer as function argument
