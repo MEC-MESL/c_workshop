@@ -527,6 +527,89 @@ int main(){
 title: pointer as function argument
 ---
 
+# pointer as function argument
+
+- call by value
+- call by reference
+
+````md magic-move
+```c
+#include<stdio.h>
+int increment(int a){
+  a = a + 1; // 11
+}
+int main(){
+  int a = 10;
+  increment(a); // 10
+  print("a = %d\n", a); // 10
+}
+```
+```c
+#include<stdio.h>
+int increment(int a){
+  a = a + 1; // 11
+  return a;
+}
+int main(){
+  int a = 10;
+  increment(a); // 10
+  print("a = %d\n", a); // 10
+}
+```
+```c
+#include<stdio.h>
+int increment(int a){
+  a = a + 1; // 11
+  return a;
+}
+int main(){
+  int a = 10;
+  a = increment(a); // 11
+  print("a = %d\n", a); // 11
+}
+```
+```c
+#include<stdio.h>
+int increment(int a){
+  a = a + 1; // 11
+}
+int main(){
+  int a = 10;
+  increment(a); // 10
+  print("a = %d\n", a); // 10
+}
+```
+```c
+#include<stdio.h>
+int increment(int a){
+  a = a + 1; // 11
+}
+int main(){
+  int a = 10;
+  increment(&a); // (0x1003)
+  print("a = %d\n", a); // 10
+}
+```
+```c
+#include<stdio.h>
+int increment(int* a){
+  *a = *a + 1; // *(0x1003) + 1
+}
+int main(){
+  int a = 10;
+  increment(&a); // (0x1003)
+  print("a = %d\n", a); // 11
+}
+```
+````
+
+<!-- 
+1. it copy the value, doent move the value.
+2. if we wanted change, we have to return, 
+3. and assigned the returned value
+3. we can pass the pointer. if we want direct.
+-->
+
 ---
 title: pointers and arrays
 ---
